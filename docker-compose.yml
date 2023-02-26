@@ -1,0 +1,19 @@
+version: '1'
+services:
+  nginx:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "2107:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=Gibethra.example
+
+  app: 
+    build: ./my-nginx-image
+    ports:
+      - "8080"
+    environment:
+      - VIRTUAL_HOST=Gibethra.example
+
+    restart: always
